@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+  <style>
+    body{
+      padding-top: 50px;
+    }
+  </style>
+</head>
+<body class="container" ng-app="myApp" ng-controller="demoCtrl">
+
+<!-- novalidate ：当提交表单时不对表单数据（输入）进行验证 -->
+<form name="userForm" novalidate>
+	<!-- 1.使用的是Bootstrap中的==>全局CSS样式==>表单中的基本实例 -->
+	<!-- .has-error也是Bootstrap中提供的类 -->
+  <div class="form-group" ng-class="{'has-error':userForm.name.$touched && userForm.name.$invalid}">
+    <label>用户名</label>
+    <input type="text" name="name" class="form-control" ng-model="main.name" ng-minlength="5"
+      ng-maxlength="10" placeholder="UserName" required/>
+	
+	<!-- .help-block是Bootstrap 对表单控件的校验状态 -->
+	<!-- ng-if 指令用于在表达式为 false 时移除 HTML 元素 -->
+    <div class="help-block" ng-messages="userForm.name.$error" ng-if="userForm.name.$touched">
+      <p ng-message="minlength">用户名最小长度5</p>
+      <p ng-message="maxlength">用户名最大长度10</p>
+      <p ng-message="required">用户名必填</p>
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{'has-error':userForm.email.$touched && userForm.email.$invalid}">
+    <label>邮箱</label>
+    <input type="email" name="email" class="form-control" ng-model="main.email" ng-minlength="5"
+   ng-maxlength="20" placeholder="Email" required/>
+
+    <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
+      	<p ng-message="required">邮箱必填</p>
+      	<p ng-message="minlength">邮箱长度太短</p>
+        <p ng-message="maxlength">邮箱长度太长</p>
+        <p ng-message="email">邮箱无效</p>
+    </div>
+  </div>
+
+    <button type="submit" class="btn btn-danger">提交</button>
+  
+</form>
+
+<!-- 2.使用npm install 安装bootstr和angular-message，====>引包 -->
+<script src="angular.min.js"></script>
+<script src="node_modules/angular-messages/angular-messages.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
